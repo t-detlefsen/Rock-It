@@ -10,12 +10,18 @@
 #include <TMRpcm.h>
 
 // For SD Card
-#include "SD.h"
-#include "SPI.h"
+#include <SD.h>
+#include <SPI.h>
+
+#define SD_ChipSelectPin 11
+TMRpcm music;
 
 // Intializations
 void setup() {
-  music.speakerPin = 5;
+  // Audio Output Setup
+  music.speakerPin = 3;
+  music.setVolume(5);
+  music.quality(1);
 }
 
 // Main Loop
