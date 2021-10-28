@@ -22,6 +22,7 @@ void setup() {
   music.speakerPin = 3;
   music.setVolume(5);
   music.quality(1);
+  music.play("1.wav");
 }
 
 // Main Loop
