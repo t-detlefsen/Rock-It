@@ -14,15 +14,13 @@ Adafruit_LiquidCrystal lcd(0);
 void setup() {
   // LCD Output Setup
   lcd.begin(16, 2);
-  lcd.print("hello, world");
+  lcd.print("Hello");
+  lcd.setCursor(0, 1);
+  lcd.print("Mark + Pat");
+  lcd.setBacklight(HIGH);
 }
 
 // Main Loop
 void loop() {
-  lcd.setCursor(0, 1);
-  lcd.print(millis()/1000);
-  lcd.setBacklight(HIGH);
-  delay(500);
-  lcd.setBacklight(LOW);
-  delay(500);
+
 }
