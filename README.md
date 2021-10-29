@@ -11,3 +11,6 @@ Rock-It! also has an LCD screen to keep the player's score and a speaker to give
 This repository is written in C++ using the Arduino IDE for the ATMega328P Microcontroller. The Microcontroller and all peripheral devices are powered by a 9V battery and enclosed in a 3D printed enclosure.
 
 This project is a part of ECE 1895 - Junior Design at the University of Pittsburgh Swanson School of Engineering.
+
+## Requirements
+- Adafruit LiquidCrystal Library - Search for the Adafruit LiquidCrystal library in the Arduino IDE library manager
