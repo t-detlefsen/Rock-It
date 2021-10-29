@@ -46,7 +46,7 @@ void loop() {
   }
 
   // Output success or failure depending on outcome
-  outcome ? success() : failure();
+  // outcome ? success() : failure();
 
   // Decrease play time each turn
   play_time -= time_decrease;
@@ -61,7 +61,7 @@ void success() {
   if (wins == 99) {
     // LCD: Win
     // Speaker: Win
-    exit();
+    exit(0);
   }
 
   // Otherwise, output wins
@@ -74,7 +74,7 @@ void faiure() {
   // Output failure and end
   // LCD: Lose
   // Speaker: Lose
-  exit();
+  exit(0);
 }
 
 // Tune-It
