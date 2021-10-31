@@ -13,4 +13,5 @@ This repository is written in C++ using the Arduino IDE for the ATMega328P Micro
 This project is a part of ECE 1895 - Junior Design at the University of Pittsburgh Swanson School of Engineering.
 
 ## Requirements
+- Adafruit LiquidCrystal Library - Search for the Adafruit LiquidCrystal library in the Arduino IDE library manager
 - TMRpcm Library - Download the zip file from the [TMRpcm repository](https://github.com/TMRh20/TMRpcm.git) and add the library to the Arduino IDE
