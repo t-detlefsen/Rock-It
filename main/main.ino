@@ -13,13 +13,14 @@
 #include <SD.h>
 #include <SPI.h>
 
-#define SD_ChipSelectPin 11
+#define SD_ChipSelectPin 5
 TMRpcm music;
 
 // Intializations
 void setup() {
   // Audio Output Setup
-  music.speakerPin = 3;
+  music.speakerPin = 5;
+  SD.begin(SD_ChipSelectPin);
   music.setVolume(5);
   music.quality(1);
   music.play("1.wav");
