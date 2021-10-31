@@ -10,6 +10,18 @@
 
 Adafruit_LiquidCrystal lcd(0);
 
+// For Audio
+#include <pcmRF.h>
+#include <pcmConfig.h>
+#include <TMRpcm.h>
+
+// For SD Card
+#include <SD.h>
+#include <SPI.h>
+
+#define SD_ChipSelectPin 5
+TMRpcm music;
+
 // Intializations
 void setup() {
   // LCD Output Setup
@@ -18,6 +30,13 @@ void setup() {
   lcd.setCursor(0, 1);
   lcd.print("Mark + Pat");
   lcd.setBacklight(HIGH);
+  
+  // Audio Output Setup
+  music.speakerPin = 5;
+  SD.begin(SD_ChipSelectPin);
+  music.setVolume(5);
+  music.quality(1);
+  music.play("1.wav");
 }
 
 // Variable Initializations

@@ -1,4 +1,4 @@
-# Rock-It
+## Rock-It
 A repository for **Rock-It!**, the Bop-It! inspired device.
 
 Rock-It! has 3 main game inputs:
@@ -14,3 +14,4 @@ This project is a part of ECE 1895 - Junior Design at the University of Pittsbur
 
 ## Requirements
 - Adafruit LiquidCrystal Library - Search for the Adafruit LiquidCrystal library in the Arduino IDE library manager
+- TMRpcm Library - Download the zip file from the [TMRpcm repository](https://github.com/TMRh20/TMRpcm.git) and add the library to the Arduino IDE
