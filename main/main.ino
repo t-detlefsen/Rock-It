@@ -37,6 +37,11 @@ void setup() {
   music.setVolume(5);
   music.quality(1);
   music.play("1.wav");
+
+  // Input Setup
+  pinMode(6, INPUT); // Encoder input
+  pinMode(7, INPUT); // Button input
+  pinMode(8, INPUT); // Momentary Switch input
 }
 
 // Variable Initializations
