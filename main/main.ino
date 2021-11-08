@@ -4,6 +4,17 @@
  * main.ino
 */
 
+/*
+ * Sounds Needed:
+ * game_start.wav
+ * game_win.wav
+ * success.wav
+ * fail.wav
+ * tune_it.wav
+ * chord_it.wav
+ * strum_it.wav
+ */
+
 // For LCD
 #include "Wire.h"
 #include "Adafruit_LiquidCrystal.h"
@@ -32,9 +43,9 @@ void setup() {
   SD.begin(SD_ChipSelectPin);
   music.setVolume(5);
   music.quality(1);
-  music.play("1.wav");
 
   // Game Startup
+  music.play("game_start.wav");
   lcd.setCursor(3, 0);
   lcd.print("Welcome to");
   lcd.setCursor(4, 1);
@@ -89,7 +100,7 @@ void success() {
 
   // If wins hit limit, output success & end
   if (wins == 99) {
-    // Game Startup
+    music.play("game_win.wav");
     lcd.setCursor(4, 0);
     lcd.print("Congrats!");
     lcd.setCursor(5, 1);
@@ -107,6 +118,7 @@ void success() {
   }
 
   // Otherwise, output wins
+  music.play("success.wav");
   lcd.setBacklight(HIGH);
   lcd.setCursor(4, 0);
   lcd.print("Nice Job!");
@@ -121,6 +133,7 @@ void success() {
 // Output Failure
 void failure() {
   // Output failure and end
+  music.play("failure.wav");
   lcd.setBacklight(HIGH);
   lcd.setCursor(4, 0);
   lcd.print("You Lose!");
@@ -141,6 +154,7 @@ void failure() {
 // Tune-It
 bool tune_it(int task_time) {
   // Indicate command
+  music.play("tune_it.wav");
   lcd.setBacklight(HIGH);
   lcd.setCursor(4, 0);
   lcd.print("Tune-It!");
@@ -162,6 +176,7 @@ bool tune_it(int task_time) {
 // Chord-It
 bool chord_it(int task_time) {
   // Indicate command
+  music.play("chord_it.wav");
   lcd.setBacklight(HIGH);
   lcd.setCursor(4, 0);
   lcd.print("Chord-It!");
@@ -183,6 +198,7 @@ bool chord_it(int task_time) {
 // Strum-It
 bool strum_it(int task_time) {
   // Indicate command
+  music.play("strum_it.wav");
   lcd.setBacklight(HIGH);
   lcd.setCursor(4, 0);
   lcd.print("Strum-It!");
