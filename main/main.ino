@@ -26,10 +26,6 @@ TMRpcm music;
 void setup() {
   // LCD Output Setup
   lcd.begin(16, 2);
-  lcd.print("Hello");
-  lcd.setCursor(0, 1);
-  lcd.print("Mark + Pat");
-  lcd.setBacklight(HIGH);
   
   // Audio Output Setup
   music.speakerPin = 5;
@@ -37,6 +33,21 @@ void setup() {
   music.setVolume(5);
   music.quality(1);
   music.play("1.wav");
+
+  // Game Startup
+  lcd.setCursor(3, 0);
+  lcd.print("Welcome to");
+  lcd.setCursor(4, 1);
+  lcd.print("Rock-It!");
+
+  for(int i = 0; i < 4; i++) {
+    lcd.setBacklight(HIGH);
+    delay(500);
+    lcd.setBacklight(LOW);
+    delay(500);
+  }
+
+  lcd.clear();
 }
 
 // Variable Initializations
@@ -65,7 +76,7 @@ void loop() {
   }
 
   // Output success or failure depending on outcome
-  // outcome ? success() : failure();
+  outcome ? success() : failure();
 
   // Decrease play time each turn
   play_time -= time_decrease;
@@ -78,26 +89,62 @@ void success() {
 
   // If wins hit limit, output success & end
   if (wins == 99) {
-    // LCD: Win
-    // Speaker: Win
+    // Game Startup
+    lcd.setCursor(4, 0);
+    lcd.print("Congrats!");
+    lcd.setCursor(5, 1);
+    lcd.print("You Win");
+  
+    for(int i = 0; i < 4; i++) {
+      lcd.setBacklight(HIGH);
+      delay(500);
+      lcd.setBacklight(LOW);
+      delay(500);
+    }
+    
+    lcd.clear();
     exit(0);
   }
 
   // Otherwise, output wins
-  // LCD: Update wins
-  // Speaker: success sound
+  lcd.setBacklight(HIGH);
+  lcd.setCursor(4, 0);
+  lcd.print("Nice Job!");
+  lcd.setCursor(5, 1);
+  lcd.print(wins + " Wins");
+  delay(3000);
+
+  lcd.setBacklight(LOW);
+  lcd.clear();
 }
 
 // Output Failure
-void faiure() {
+void failure() {
   // Output failure and end
-  // LCD: Lose
-  // Speaker: Lose
+  lcd.setBacklight(HIGH);
+  lcd.setCursor(4, 0);
+  lcd.print("You Lose!");
+  delay(3000);
+
+  lcd.clear();
+  lcd.setCursor(3, 0);
+  lcd.print("Better Luck");
+  lcd.setCursor(4, 0);
+  lcd.print("Next Time");
+  delay(3000);
+  
+  lcd.setBacklight(LOW);
+  lcd.clear();
   exit(0);
 }
 
 // Tune-It
 bool tune_it(int task_time) {
+  // Indicate command
+  lcd.setBacklight(HIGH);
+  lcd.setCursor(4, 0);
+  lcd.print("Tune-It!");
+  
   // Get Start time
   int start = millis();
 
@@ -107,11 +154,18 @@ bool tune_it(int task_time) {
   }
 
   // If task is not completed, return failure
+  lcd.setBacklight(LOW);
+  lcd.clear();
   return false;
 }
 
 // Chord-It
 bool chord_it(int task_time) {
+  // Indicate command
+  lcd.setBacklight(HIGH);
+  lcd.setCursor(4, 0);
+  lcd.print("Chord-It!");
+
   // Get Start time
   int start = millis();
   
@@ -121,11 +175,18 @@ bool chord_it(int task_time) {
   }
   
   // If task is not completed, return failure
+  lcd.setBacklight(LOW);
+  lcd.clear();
   return false;
 }
 
 // Strum-It
 bool strum_it(int task_time) {
+  // Indicate command
+  lcd.setBacklight(HIGH);
+  lcd.setCursor(4, 0);
+  lcd.print("Strum-It!");
+  
   // Get Start time
   int start = millis();
 
@@ -135,5 +196,7 @@ bool strum_it(int task_time) {
   }
 
   // If task is not completed, return failure
+  lcd.setBacklight(LOW);
+  lcd.clear();
   return false;
 }
