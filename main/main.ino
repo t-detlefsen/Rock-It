@@ -44,6 +44,11 @@ void setup() {
   music.setVolume(5);
   music.quality(1);
 
+  // Input Setup
+  pinMode(6, INPUT); // Encoder input
+  pinMode(7, INPUT); // Button input
+  pinMode(8, INPUT); // Momentary Switch input
+  
   // Game Startup
   music.play("game_start.wav");
   lcd.setCursor(3, 0);
