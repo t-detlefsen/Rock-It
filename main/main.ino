@@ -167,9 +167,17 @@ bool tune_it(int task_time) {
   // Get Start time
   int start = millis();
 
+  // Get initial state
+  bool orig_input = digitalRead(6);
+
   // Poll for input while there's time left
   while (millis() - start < task_time) {
     // Check for encoder input
+    if (digitalRead(6) != orig_input) {
+      lcd.setBacklight(LOW);
+      lcd.clear();
+      return true;
+    }
   }
 
   // If task is not completed, return failure
@@ -192,6 +200,11 @@ bool chord_it(int task_time) {
   // Poll for input while there's time left
   while (millis() - start < task_time) {
     // Check for button input
+    if (digitalRead(7)) {
+      lcd.setBacklight(LOW);
+      lcd.clear();
+      return true;
+    }
   }
   
   // If task is not completed, return failure
@@ -214,6 +227,11 @@ bool strum_it(int task_time) {
   // Poll for input while there's time left
   while (millis() - start < task_time) {
     // Check for MOM input
+    if (digitalRead(8)) {
+      lcd.setBacklight(LOW);
+      lcd.clear();
+      return true;
+    }
   }
 
   // If task is not completed, return failure
