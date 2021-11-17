@@ -46,8 +46,8 @@ void setup() {
 
   // Input Setup
   pinMode(6, INPUT); // Encoder input
-  pinMode(7, INPUT); // Button input
-  pinMode(8, INPUT); // Momentary Switch input
+  pinMode(7, INPUT); // Momentary Switch input
+  pinMode(8, INPUT); // Button input
   
   // Game Startup
   music.play("game_start.wav");
@@ -76,7 +76,8 @@ int time_decrease = 45; // How much time decreases each turn
 // Main Loop
 void loop() {
   // Choose a random task
-  task = random(2);
+  randomSeed(analogRead(0));
+  task = random(3);
 
   // Execute task function depending on selection
   switch(task) {
@@ -128,7 +129,7 @@ void success() {
   lcd.setCursor(4, 0);
   lcd.print("Nice Job!");
   lcd.setCursor(5, 1);
-  lcd.print(wins + " Wins");
+  lcd.print(String(wins) + " Wins");
   delay(3000);
 
   lcd.setBacklight(LOW);
@@ -147,7 +148,7 @@ void failure() {
   lcd.clear();
   lcd.setCursor(3, 0);
   lcd.print("Better Luck");
-  lcd.setCursor(4, 0);
+  lcd.setCursor(4, 1);
   lcd.print("Next Time");
   delay(3000);
   
@@ -200,7 +201,7 @@ bool chord_it(int task_time) {
   // Poll for input while there's time left
   while (millis() - start < task_time) {
     // Check for button input
-    if (digitalRead(7)) {
+    if (digitalRead(8)) {
       lcd.setBacklight(LOW);
       lcd.clear();
       return true;
@@ -227,7 +228,7 @@ bool strum_it(int task_time) {
   // Poll for input while there's time left
   while (millis() - start < task_time) {
     // Check for MOM input
-    if (digitalRead(8)) {
+    if (digitalRead(7)) {
       lcd.setBacklight(LOW);
       lcd.clear();
       return true;
@@ -239,3 +240,7 @@ bool strum_it(int task_time) {
   lcd.clear();
   return false;
 }
+
+// ADD SOUNDS
+// ADD WRONG INPUT FAIL
+// FIX DEAD AFTER WINS
