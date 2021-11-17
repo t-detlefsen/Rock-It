@@ -4,17 +4,6 @@
  * main.ino
 */
 
-/*
- * Sounds Needed:
- * game_start.wav
- * game_win.wav
- * success.wav
- * fail.wav
- * tune_it.wav
- * chord_it.wav
- * strum_it.wav
- */
-
 // For LCD
 #include "Wire.h"
 #include "Adafruit_LiquidCrystal.h"
@@ -35,6 +24,9 @@ TMRpcm music;
 
 // Intializations
 void setup() {
+  // Get Random Seed
+  randomSeed(analogRead(0));
+  
   // LCD Output Setup
   lcd.begin(16, 2);
   
@@ -76,7 +68,6 @@ int time_decrease = 45; // How much time decreases each turn
 // Main Loop
 void loop() {
   // Choose a random task
-  randomSeed(analogRead(0));
   task = random(3);
 
   // Execute task function depending on selection
@@ -91,12 +82,12 @@ void loop() {
       outcome = strum_it(play_time); // Strum-It
       break;
   }
-
+  
   // Output success or failure depending on outcome
-  outcome ? success() : failure();
+  outcome ? success() : success();
 
   // Decrease play time each turn
-  play_time -= time_decrease;
+//  play_time -= time_decrease;
 }
 
 // Output Success
@@ -111,7 +102,7 @@ void success() {
     lcd.print("Congrats!");
     lcd.setCursor(5, 1);
     lcd.print("You Win");
-  
+
     for(int i = 0; i < 4; i++) {
       lcd.setBacklight(HIGH);
       delay(500);
@@ -166,7 +157,7 @@ bool tune_it(int task_time) {
   lcd.print("Tune-It!");
   
   // Get Start time
-  int start = millis();
+  unsigned long start = millis();
 
   // Get initial state
   bool orig_input = digitalRead(6);
@@ -196,7 +187,7 @@ bool chord_it(int task_time) {
   lcd.print("Chord-It!");
 
   // Get Start time
-  int start = millis();
+  unsigned long start = millis();
   
   // Poll for input while there's time left
   while (millis() - start < task_time) {
@@ -207,7 +198,7 @@ bool chord_it(int task_time) {
       return true;
     }
   }
-  
+
   // If task is not completed, return failure
   lcd.setBacklight(LOW);
   lcd.clear();
@@ -223,7 +214,7 @@ bool strum_it(int task_time) {
   lcd.print("Strum-It!");
   
   // Get Start time
-  int start = millis();
+  unsigned long start = millis();
 
   // Poll for input while there's time left
   while (millis() - start < task_time) {
@@ -241,6 +232,4 @@ bool strum_it(int task_time) {
   return false;
 }
 
-// ADD SOUNDS
 // ADD WRONG INPUT FAIL
-// FIX DEAD AFTER WINS
