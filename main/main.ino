@@ -55,6 +55,7 @@ void setup() {
     delay(500);
   }
 
+  lcd.setBacklight(HIGH);
   lcd.clear();
 }
 
@@ -84,10 +85,10 @@ void loop() {
   }
   
   // Output success or failure depending on outcome
-  outcome ? success() : success();
+  outcome ? success() : failure();
 
   // Decrease play time each turn
-//  play_time -= time_decrease;
+  play_time -= time_decrease;
 }
 
 // Output Success
@@ -116,14 +117,12 @@ void success() {
 
   // Otherwise, output wins
   music.play("success.wav");
-  lcd.setBacklight(HIGH);
   lcd.setCursor(4, 0);
   lcd.print("Nice Job!");
   lcd.setCursor(5, 1);
   lcd.print(String(wins) + " Wins");
+  
   delay(3000);
-
-  lcd.setBacklight(LOW);
   lcd.clear();
 }
 
@@ -131,7 +130,6 @@ void success() {
 void failure() {
   // Output failure and end
   music.play("failure.wav");
-  lcd.setBacklight(HIGH);
   lcd.setCursor(4, 0);
   lcd.print("You Lose!");
   delay(3000);
@@ -152,7 +150,6 @@ void failure() {
 bool tune_it(int task_time) {
   // Indicate command
   music.play("tune_it.wav");
-  lcd.setBacklight(HIGH);
   lcd.setCursor(4, 0);
   lcd.print("Tune-It!");
   
@@ -166,14 +163,21 @@ bool tune_it(int task_time) {
   while (millis() - start < task_time) {
     // Check for encoder input
     if (digitalRead(6) != orig_input) {
-      lcd.setBacklight(LOW);
       lcd.clear();
       return true;
+    }
+
+    // If other input, return false
+    if (digitalRead(7)) {
+      lcd.clear();
+      return false;
+    } if (digitalRead(8)) {
+      lcd.clear();
+      return false;
     }
   }
 
   // If task is not completed, return failure
-  lcd.setBacklight(LOW);
   lcd.clear();
   return false;
 }
@@ -182,25 +186,34 @@ bool tune_it(int task_time) {
 bool chord_it(int task_time) {
   // Indicate command
   music.play("chord_it.wav");
-  lcd.setBacklight(HIGH);
   lcd.setCursor(4, 0);
   lcd.print("Chord-It!");
 
   // Get Start time
   unsigned long start = millis();
+
+  // Get initial state of encoder
+  bool orig_input = digitalRead(6);
   
   // Poll for input while there's time left
   while (millis() - start < task_time) {
     // Check for button input
     if (digitalRead(8)) {
-      lcd.setBacklight(LOW);
       lcd.clear();
       return true;
     }
-  }
+
+    // If other input, return false
+    if (digitalRead(6) != orig_input) {
+      lcd.clear();
+      return false;
+    } if (digitalRead(7)) {
+      lcd.clear();
+      return false;
+    }
+  } 
 
   // If task is not completed, return failure
-  lcd.setBacklight(LOW);
   lcd.clear();
   return false;
 }
@@ -209,27 +222,34 @@ bool chord_it(int task_time) {
 bool strum_it(int task_time) {
   // Indicate command
   music.play("strum_it.wav");
-  lcd.setBacklight(HIGH);
   lcd.setCursor(4, 0);
   lcd.print("Strum-It!");
   
   // Get Start time
   unsigned long start = millis();
 
+  // Get initial state of encoder
+  bool orig_input = digitalRead(6);
+
   // Poll for input while there's time left
   while (millis() - start < task_time) {
     // Check for MOM input
     if (digitalRead(7)) {
-      lcd.setBacklight(LOW);
       lcd.clear();
       return true;
+    }
+
+    // If other input, return false
+    if (digitalRead(6) != orig_input) {
+      lcd.clear();
+      return false;
+    } if (digitalRead(8)) {
+      lcd.clear();
+      return false;
     }
   }
 
   // If task is not completed, return failure
-  lcd.setBacklight(LOW);
   lcd.clear();
   return false;
 }
-
-// ADD WRONG INPUT FAIL
