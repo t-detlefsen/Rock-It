@@ -50,9 +50,9 @@ void setup() {
 
   for(int i = 0; i < 4; i++) {
     lcd.setBacklight(HIGH);
-    delay(500);
+    play_tone(2, 500);
     lcd.setBacklight(LOW);
-    delay(500);
+    play_tone(6, 500);
   }
 
   lcd.setBacklight(HIGH);
@@ -98,7 +98,7 @@ void success() {
 
   // If wins hit limit, output success & end
   if (wins == 99) {
-    music.play("game_win.wav");
+//    music.play("game_win.wav");
     lcd.setCursor(4, 0);
     lcd.print("Congrats!");
     lcd.setCursor(5, 1);
@@ -106,9 +106,9 @@ void success() {
 
     for(int i = 0; i < 4; i++) {
       lcd.setBacklight(HIGH);
-      delay(500);
+      play_tone(3, 500);
       lcd.setBacklight(LOW);
-      delay(500);
+      play_tone(5, 500);
     }
     
     lcd.clear();
@@ -116,23 +116,39 @@ void success() {
   }
 
   // Otherwise, output wins
-  music.play("success.wav");
+//  music.play("success.wav");
   lcd.setCursor(4, 0);
   lcd.print("Nice Job!");
   lcd.setCursor(5, 1);
   lcd.print(String(wins) + " Wins");
   
-  delay(3000);
+  play_tone(2, 500);
+  delay(250);
+  play_tone(2, 500);
+  delay(250);
+  
   lcd.clear();
+}
+
+void play_tone(double del, int tone_time) {
+  
+  unsigned long start = millis();
+  
+  while (millis() - start < tone_time) {
+    digitalWrite(3, HIGH);
+    delay(del);
+    digitalWrite(3, LOW);
+    delay(del);
+}
 }
 
 // Output Failure
 void failure() {
   // Output failure and end
-  music.play("failure.wav");
+//  music.play("failure.wav");
   lcd.setCursor(4, 0);
   lcd.print("You Lose!");
-  delay(3000);
+  play_tone(6, 1000);
 
   lcd.clear();
   lcd.setCursor(3, 0);
@@ -149,9 +165,13 @@ void failure() {
 // Tune-It
 bool tune_it(int task_time) {
   // Indicate command
-  music.play("tune_it.wav");
+//  music.play("tune_it.wav");
   lcd.setCursor(4, 0);
   lcd.print("Tune-It!");
+  play_tone(3, 500);
+  delay(100);
+  play_tone(3, 500);
+  delay(100);
   
   // Get Start time
   unsigned long start = millis();
@@ -185,9 +205,13 @@ bool tune_it(int task_time) {
 // Chord-It
 bool chord_it(int task_time) {
   // Indicate command
-  music.play("chord_it.wav");
+//  music.play("chord_it.wav");
   lcd.setCursor(4, 0);
   lcd.print("Chord-It!");
+  play_tone(4, 500);
+  delay(100);
+  play_tone(4, 500);
+  delay(100);
 
   // Get Start time
   unsigned long start = millis();
@@ -221,9 +245,13 @@ bool chord_it(int task_time) {
 // Strum-It
 bool strum_it(int task_time) {
   // Indicate command
-  music.play("strum_it.wav");
+//  music.play("strum_it.wav");
   lcd.setCursor(4, 0);
   lcd.print("Strum-It!");
+  play_tone(5, 500);
+  delay(100);
+  play_tone(5, 500);
+  delay(100);
   
   // Get Start time
   unsigned long start = millis();
